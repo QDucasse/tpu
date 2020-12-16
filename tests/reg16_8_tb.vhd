@@ -31,7 +31,7 @@ architecture behavior of reg16_8_tb is
          I_selB  : IN  std_logic_vector(2 downto 0);
          I_selD  : IN  std_logic_vector(2 downto 0);
          I_we    : IN  std_logic
-        );
+         );
     end component;
 
    -- Input Signals Declarations
@@ -66,7 +66,7 @@ architecture behavior of reg16_8_tb is
         );
 
    -- Clock Process
-   I_clk_process : process
+   ClockProcess : process
    begin
     I_clk <= '0';
     wait for I_clk_period/2;
