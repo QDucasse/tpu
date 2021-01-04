@@ -17,7 +17,7 @@ use IEEE.std_logic_1164.all;
 --      Package
 -- =================
 
-package tpu_constants is
+package constant_codes is
 
   constant ADDR_RESET:    std_logic_vector(15 downto 0) :=  X"0000";
   constant ADDR_INTVEC:   std_logic_vector(15 downto 0) :=  X"0008";
@@ -99,9 +99,9 @@ package tpu_constants is
   -- constant PCU_OP_ASSIGN: std_logic_vector(1 downto 0):= "10";
   -- constant PCU_OP_RESET: std_logic_vector(1 downto 0):= "11";
 
-end package tpu_constants;
+end package constant_codes;
 
 
-package body tpu_constants is
+package body constant_codes is
   -- Empty body since only constants are used in this package
-end package body tpu_constants;
+end package body constant_codes;

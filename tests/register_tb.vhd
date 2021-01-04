@@ -1,7 +1,7 @@
 -- TPU Blogpost series by @domipheus
 -- Author: Quentin Ducasse | quentin.ducasse@ensta-bretagne.org
 -- ============================================================
--- Testbench for the 8*16-bit register entity
+-- Testbench for the register entity
 --
 
 -- =================
@@ -34,7 +34,7 @@ architecture arch_reg_tb of reg_tb is
     -- Wait for a given number of clock cycles
     procedure wait_cycles(n : natural) is
      begin
-       for i in 0 to n loop
+       for i in 1 to n loop
          wait until rising_edge(clk);
        end loop;
      end procedure;
@@ -85,6 +85,7 @@ begin
       report "Running testbench for reg";
       wait until reset_n = '1';
       wait until enable  = '1';
+      wait_cycles(1);
 
       -- Test Write 1: Write 0xfab5 to R0
       I_selA <= "000";    -- Read R0
@@ -94,7 +95,7 @@ begin
       I_we <= '1';        -- Write data on output
       wait_cycles(1);
       I_selA <= "000";    -- Read R0 -> Write to O_dataA
-      wait_cycles(1);
+      wait_cycles(2);
       if (O_dataA=X"FAB5") then report "Test Write 1: Passed" severity NOTE;
         else report "Test Write 1: Failed" severity FAILURE;
       end if;
@@ -107,7 +108,7 @@ begin
       I_we <= '1';        -- Write data on output
       wait_cycles(1);
       I_selA <= "010";    -- Read R0 -> Write to O_dataA
-      wait_cycles(1);
+      wait_cycles(2);
       if (O_dataA=X"2222") then report "Test Write 2: Passed" severity NOTE;
         else report "Test Write 2: Failed" severity FAILURE;
       end if;
@@ -121,7 +122,7 @@ begin
       wait_cycles(1);
       I_selA <= "010";    -- Read R2 -> Write to O_dataA
       I_selB <= "000";
-      wait_cycles(1);
+      wait_cycles(2);
       if (O_dataA=X"3333") then report "Test Write 3: Passed" severity NOTE;
         else report "Test Write 3: Failed" severity FAILURE;
       end if;
@@ -134,7 +135,7 @@ begin
       I_we <= '0';        -- DO NOT write the data on output
       wait_cycles(1);
       I_selA <= "010";    -- Read R2 -> Write to O_dataA
-      wait_cycles(1);
+      wait_cycles(2);
       if (O_dataA=X"FEED") then report "Test No Write: Failed" severity FAILURE;
         else report "Test No Write: Passed" severity NOTE;
       end if;
@@ -157,7 +158,7 @@ begin
 
       I_selA <= "100";
       I_selB <= "100";
-      wait_cycles(1);
+      wait_cycles(2);
       if (O_dataA=X"4444" and O_dataB=X"4444") then report "Test Combined Read: Passed" severity NOTE;
         else report "Test Combined Read: Failed" severity FAILURE;
       end if;

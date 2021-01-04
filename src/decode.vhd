@@ -19,8 +19,9 @@ use IEEE.numeric_std.all;
 -- =================
 
 entity decode is
-    port (I_clk     : in STD_LOGIC;                        -- Clock signal
-          I_en      : in STD_LOGIC;                        -- Enable
+    port (I_clk     : in STD_LOGIC; -- Clock signal
+          I_en      : in STD_LOGIC; -- Enable signal
+
           I_dataInst: in STD_LOGIC_VECTOR (15 downto 0);   -- 16-bit Instruction
           O_selA    : out STD_LOGIC_VECTOR (2 downto 0);   -- Register A from instruction
           O_selB    : out STD_LOGIC_VECTOR (2 downto 0);   -- Register B from instruction
@@ -47,9 +48,10 @@ begin
             O_selB <= I_dataInst(4 downto 2);    -- Decode RB from instruction
             O_selD <= I_dataInst(11 downto 9);   -- Decode RD from instruction
             O_dataImm <= I_dataInst(7 downto 0) & I_dataInst(7 downto 0); -- Immediate value concatenated with itself to form a 16-bit output
-            O_aluop <= I_dataInst(15 downto 12) & I_dataInst(8);         -- Decode alu operation: 4-bits OPCODE and flag
+            O_aluop <= I_dataInst(15 downto 12) & I_dataInst(8);          -- Decode alu operation: 4-bits OPCODE and flag
 
-            -- Switch the instruction to set the write enable
+            -- Switch the instruction to set the write enable to NO in case of
+            -- the following operations
             case I_dataInst(15 downto 12) is
                 when "0111" => -- WRITE
                   O_regDwe <= '0';
