@@ -1,3 +1,11 @@
+-- TPU Blogpost series by @domipheus
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
+-- Decoder of the incoming 16-bits instruction to extract the different
+-- selectors as well as the operation to perform.
+
 -- =================
 --    Libraries
 -- =================
@@ -14,8 +22,8 @@ entity decode is
     port (I_clk     : in STD_LOGIC;                        -- Clock signal
           I_en      : in STD_LOGIC;                        -- Enable
           I_dataInst: in STD_LOGIC_VECTOR (15 downto 0);   -- 16-bit Instruction
-          O_selA    : out STD_LOGIC_VECTOR (2 downto 0);  -- Register A from instruction
-          O_selB    : out STD_LOGIC_VECTOR (2 downto 0);  -- Register B from instruction
+          O_selA    : out STD_LOGIC_VECTOR (2 downto 0);   -- Register A from instruction
+          O_selB    : out STD_LOGIC_VECTOR (2 downto 0);   -- Register B from instruction
           O_selD    : out STD_LOGIC_VECTOR (2 downto 0);   -- Register destination from instruction
           O_dataImm : out STD_LOGIC_VECTOR (15 downto 0);  -- Immediate value from instruction
           O_aluop   : out STD_LOGIC_VECTOR (4 downto 0);   -- ALU operation to perform

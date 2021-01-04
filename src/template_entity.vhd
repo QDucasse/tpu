@@ -1,3 +1,5 @@
+-- Template for VHDL components
+
 -- =================
 --    Libraries
 -- =================
@@ -27,7 +29,7 @@ architecture arch_template of template is
     -- None
 begin
     -- Processes
-    TransferData: process(I_clk) -- I_clk added to the sensitivity list of the process
+    Process1: process(I_clk) -- I_clk added to the sensitivity list of the process
     begin
         if rising_edge(I_clk) and I_en='1' then  -- If new cycle and enable
             Output_data <= Input_data;

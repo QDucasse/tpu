@@ -1,3 +1,10 @@
+-- TPU Blogpost series by @domipheus
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
+-- Simple control unit with different states
+
 -- =================
 --    Libraries
 -- =================
@@ -21,7 +28,7 @@ end control_unit_simple;
 --   Architecture
 -- =================
 
-architecture arch_control_unit_simple of template is
+architecture arch_control_unit_simple of control_unit_simple is
     -- Internal Objects
     signal s_state : STD_LOGIC_VECTOR(3 downto 0) := "0001";
 begin
@@ -37,7 +44,7 @@ begin
                 s_state <= "0010";
               when "0010" =>
                 s_state <= "0100";
-              when "0010" =>
+              when "0100" =>
                 s_state <= "1000";
               when "1000" =>
                 s_state <= "0001";

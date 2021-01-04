@@ -1,3 +1,12 @@
+-- TPU Blogpost series by @domipheus
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
+-- Arithmetic Logic Unit that performs the logic operations.
+-- Here it means performing the actual operations behind the OPCODES.
+
+
 -- =================
 --    Libraries
 -- =================

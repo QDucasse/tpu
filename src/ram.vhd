@@ -1,3 +1,11 @@
+-- TPU Blogpost series by @domipheus
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
+-- Random Access Memory consisting of an array of 32 16-bits addresses
+-- with writes and reads.
+
 -- =================
 --    Libraries
 -- =================
@@ -26,7 +34,7 @@ end ram_16;
 architecture arch_ram16 of ram_16 is
     -- Internal Objects
     type store_t is array (0 to 31) of STD_LOGIC_VECTOR(15 downto 0);  -- 32 16-bit addresses
-    signal ram: store_t := (others => X"0000");                     -- Affectation of the array and initialization at 0
+    signal ram: store_t := (others => X"0000");                        -- Affectation of the array and initialization at 0
 
 begin
   -- Processes
