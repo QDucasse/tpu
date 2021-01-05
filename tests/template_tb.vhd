@@ -1,3 +1,7 @@
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
 -- Template for VHDL components
 
 -- =================
@@ -50,14 +54,14 @@ architecture arch_template_tb of template_tb is
     begin
       wait until reset_n='1';
       wait_cycles(10);
-      report "Running testbench for template";
+      report "TEMPLATE: Running testbench";
       -- TESTING OPERATIONS
       if (true) then report "Test: Passed" severity NOTE;
         else report "Test: Failed" severity FAILURE;
       end if;
 
       running <= false;
-      report "Testbench complete";
+      report "TEMPLATE: Testbench complete";
     end process;
 
 end arch_template_tb;
