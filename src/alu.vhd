@@ -32,7 +32,7 @@ entity alu is
           I_dataA      : in STD_LOGIC_VECTOR (REG_WIDTH-1 downto 0);  -- 16-bit Input data
           I_dataB      : in STD_LOGIC_VECTOR (REG_WIDTH-1 downto 0);  -- 16-bit Input data
           I_dataDwe    : in STD_LOGIC;                                -- Write Enable
-          I_aluop      : in STD_LOGIC_VECTOR (OP_SIZE downto 0);      -- ALU Operation Code
+          I_aluop      : in STD_LOGIC_VECTOR (OP_SIZE downto 0);      -- ALU Operation Code + flag as set by the decoder
           I_PC         : in STD_LOGIC_VECTOR (REG_WIDTH-1 downto 0);  -- Program Counter
           I_dataImm    : in STD_LOGIC_VECTOR (REG_WIDTH-1 downto 0);  -- Immediate value passed
           O_dataResult : out STD_LOGIC_VECTOR (REG_WIDTH-1 downto 0); -- 16-bit result of the operation
@@ -79,6 +79,17 @@ begin
                     s_result(REG_WIDTH downto 0) <= std_logic_vector(signed(I_dataA(15) & I_dataA) + signed(I_dataB(15) & I_dataB));
                   end if;
                   s_shouldBranch <= '0';   -- Operation does not need branching
+
+                -- SUB operation
+                -- =============
+                when OPCODE_SUB =>
+                  if I_aluop(0) = '0' then -- Unsigned variation
+                    s_result(REG_WIDTH downto 0) <= std_logic_vector(unsigned('0' & I_dataA) - unsigned('0' & I_dataB));
+                  else                     -- Signed variation
+                    s_result(REG_WIDTH downto 0) <= std_logic_vector(signed(I_dataA(15) & I_dataA) - signed(I_dataB(15) & I_dataB));
+                  end if;
+                  s_shouldBranch <= '0';   -- Operation does not need branching
+
 
                 -- OR operation
                 -- ============
@@ -135,9 +146,9 @@ begin
 
                   -- Compare B to 0
                   if I_dataB = X"0000" then
-                    s_result(CMP_BIT_AZ) <= '1';
+                    s_result(CMP_BIT_BZ) <= '1';
                   else
-                    s_result(CMP_BIT_AZ) <= '0';
+                    s_result(CMP_BIT_BZ) <= '0';
                   end if;
 
                   -- Compare A and B (GREATER THAN)
@@ -161,11 +172,11 @@ begin
                     else
                       s_result(CMP_BIT_AGB) <= '0';
                     end if;
-                    -- Signed A <  B ?
+                    -- Signed A < B ?
                     if signed(I_dataA) < signed(I_dataB) then
-                      s_result(CMP_BIT_AGB) <= '1';
+                      s_result(CMP_BIT_ALB) <= '1';
                     else
-                      s_result(CMP_BIT_AGB) <= '0';
+                      s_result(CMP_BIT_ALB) <= '0';
                     end if;
                   end if;
                   -- Zero unused bits and shouldBranch
@@ -226,7 +237,7 @@ begin
                       s_shouldBranch <= I_dataA(CMP_BIT_EQ);
                     when CJF_AZ => -- A = 0
                       s_shouldBranch <= I_dataA(CMP_BIT_AZ);
-                    when CJF_BZ => -- A = 0
+                    when CJF_BZ => -- B = 0
                       s_shouldBranch <= I_dataA(CMP_BIT_BZ);
                     when CJF_ANZ => -- A != 0
                       s_shouldBranch <= not I_dataA(CMP_BIT_AZ);
