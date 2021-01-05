@@ -75,29 +75,29 @@ package constant_codes is
   -- constant IFO_F2_END:   integer := 0;
 
   -- Conditional jump flags
-  constant CJF_EQ: std_logic_vector(2 downto 0)  := "000";
-  constant CJF_AZ: std_logic_vector(2 downto 0)  := "001";
-  constant CJF_BZ: std_logic_vector(2 downto 0)  := "010";
+  constant CJF_EQ:  std_logic_vector(2 downto 0) := "000";
+  constant CJF_AZ:  std_logic_vector(2 downto 0) := "001";
+  constant CJF_BZ:  std_logic_vector(2 downto 0) := "010";
   constant CJF_ANZ: std_logic_vector(2 downto 0) := "011";
   constant CJF_BNZ: std_logic_vector(2 downto 0) := "100";
   constant CJF_AGB: std_logic_vector(2 downto 0) := "101";
   constant CJF_ALB: std_logic_vector(2 downto 0) := "110";
 
   -- cmp output bits
-  constant CMP_BIT_EQ: integer  := 14;
+  constant CMP_BIT_EQ:  integer := 14;
   constant CMP_BIT_AGB: integer := 13;
   constant CMP_BIT_ALB: integer := 12;
-  constant CMP_BIT_AZ: integer  := 11;
-  constant CMP_BIT_BZ: integer  := 10;
+  constant CMP_BIT_AZ:  integer := 11;
+  constant CMP_BIT_BZ:  integer := 10;
 
   -- the bits are offset when writing the intermediate register
   constant CMP_BIT_OFFSET: integer := 0;
 
   -- PC unit opcodes
-  -- constant PCU_OP_NOP: std_logic_vector(1 downto 0):= "00";
-  -- constant PCU_OP_INC: std_logic_vector(1 downto 0):= "01";
-  -- constant PCU_OP_ASSIGN: std_logic_vector(1 downto 0):= "10";
-  -- constant PCU_OP_RESET: std_logic_vector(1 downto 0):= "11";
+  constant PCU_OP_NOP:    std_logic_vector(1 downto 0):= "00";
+  constant PCU_OP_INC:    std_logic_vector(1 downto 0):= "01";
+  constant PCU_OP_ASSIGN: std_logic_vector(1 downto 0):= "10";
+  constant PCU_OP_RESET:  std_logic_vector(1 downto 0):= "11";
 
 end package constant_codes;
 

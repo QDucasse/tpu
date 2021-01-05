@@ -27,7 +27,7 @@ architecture arch_ram_memory_tb of ram_memory_tb is
     -- Clock, Reset and Enable signals
     constant HALF_PERIOD : time := 5 ns; -- Clock half period
     signal clk     : std_logic  := '0';  -- Clock signal
-    signal reset_n : std_logic  := '0';  -- Reset signal
+    signal reset   : std_logic  := '0';  -- Reset signal
     signal running : boolean    := true; -- Running flag, Simulation continues while true
 
     -- Wait for a given number of clock cycles
@@ -51,7 +51,7 @@ architecture arch_ram_memory_tb of ram_memory_tb is
 
     begin
     -- Clock, reset and enable signals
-    reset_n <= '0', '1' after 10 ns;
+    reset <= '0', '1' after 10 ns;
     clk <= not(clk) after HALF_PERIOD when running else clk;
 
     -- DUT
@@ -62,7 +62,7 @@ architecture arch_ram_memory_tb of ram_memory_tb is
         )
         port map (
           I_clk   => clk,
-          I_reset => reset_n,
+          I_reset => reset,
           I_we    => I_we,
           I_addr  => I_addr,
           I_data  => I_data,
@@ -73,7 +73,7 @@ architecture arch_ram_memory_tb of ram_memory_tb is
     -- Stimulus process
     StimulusProcess: process
     begin
-      wait until reset_n='1';
+      wait until reset='1';
       wait_cycles(1);
       report "RAM: Running testbench";
 

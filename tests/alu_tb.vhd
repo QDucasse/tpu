@@ -32,7 +32,7 @@ architecture arch_alu_tb of alu_tb is
     -- Clock, Reset and Enable signals
     constant HALF_PERIOD : time := 5 ns; -- Clock half period
     signal clk     : std_logic  := '0';  -- Clock signal
-    signal reset_n : std_logic  := '0';  -- Reset signal
+    signal reset   : std_logic  := '0';  -- Reset signal
     signal enable  : std_logic  := '0';  -- Enable signal
     signal running : boolean    := true; -- Running flag, Simulation continues while true
 
@@ -61,7 +61,7 @@ architecture arch_alu_tb of alu_tb is
 
     begin
     -- Clock, reset and enable signals
-    reset_n <= '0', '1' after 10 ns;
+    reset <= '0', '1' after 10 ns;
     enable  <= '0', '1' after 50 ns;
     clk <= not(clk) after HALF_PERIOD when running else clk;
     -- DUT
@@ -73,7 +73,7 @@ architecture arch_alu_tb of alu_tb is
         port map (
           I_clk          => clk,
           I_en           => enable,
-          I_reset        => reset_n,
+          I_reset        => reset,
           I_dataA        => I_dataA,
           I_dataB        => I_dataB,
           I_dataDwe      => I_dataDwe,
@@ -89,7 +89,7 @@ architecture arch_alu_tb of alu_tb is
     StimulusProcess: process
       variable cmp : boolean := false;
     begin
-      wait until reset_n='1';
+      wait until reset='1';
       wait until enable='1';
       wait_cycles(10);
       report "ALU: Running testbench";
@@ -458,7 +458,7 @@ architecture arch_alu_tb of alu_tb is
       if (cmp) then report "Test JUMP - CJF_ALB: Passed" severity NOTE;
         else report "Test JUMP - CJF_ALB: Failed" severity FAILURE;
       end if;
-      
+
       running <= false;
       report "ALU: Testbench complete";
     end process;
