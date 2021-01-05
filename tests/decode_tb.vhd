@@ -1,4 +1,9 @@
--- Template for VHDL components
+-- TPU Blogpost series by @domipheus
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
+-- Testbench for the decode entity.
 
 -- =================
 --    Libraries
@@ -74,7 +79,7 @@ begin
       variable res5 : boolean;
       variable res6 : boolean;
     begin
-      report "Running testbench for template";
+      report "DECODE: Running testbench";
       wait until enable='1';
       wait_cycles(1);
 
@@ -157,7 +162,7 @@ begin
       end if;
 
       running <= false;
-      report "Testbench complete";
+      report "DECODE: Testbench complete";
     end process;
 
 end arch_decode_tb;

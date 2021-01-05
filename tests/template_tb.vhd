@@ -48,9 +48,9 @@ architecture arch_template_tb of template_tb is
     -- Stimulus process
     StimulusProcess: process
     begin
-      report "Running testbench for template";
       wait until reset_n='1';
-      wait_cycles(100);
+      wait_cycles(10);
+      report "Running testbench for template";
       -- TESTING OPERATIONS
       if (true) then report "Test: Passed" severity NOTE;
         else report "Test: Failed" severity FAILURE;

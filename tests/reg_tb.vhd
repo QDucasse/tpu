@@ -1,8 +1,9 @@
 -- TPU Blogpost series by @domipheus
--- Author: Quentin Ducasse | quentin.ducasse@ensta-bretagne.org
--- ============================================================
+-- Author: Quentin Ducasse
+--   mail:   quentin.ducasse@ensta-bretagne.org
+--   github: QDucasse
+-- =================================
 -- Testbench for the register entity
---
 
 -- =================
 --    Libraries
@@ -82,10 +83,10 @@ begin
    -- Stimulus process
    StimulusProcess: process
    begin
-      report "Running testbench for reg";
       wait until reset_n = '1';
       wait until enable  = '1';
       wait_cycles(1);
+      report "REGISTER: Running testbench";
 
       -- Test Write 1: Write 0xfab5 to R0
       I_selA <= "000";    -- Read R0
@@ -117,8 +118,8 @@ begin
       I_selA <= "000";    -- Read R0
       I_selB <= "001";    -- Read R1
       I_selD <= "010";    -- Destination: R2
-      I_dataD <= X"3333"; -- Data to write: 0x2222
-      I_we <= '1';        -- Writ data on output
+      I_dataD <= X"3333"; -- Data to write: 0x3333
+      I_we <= '1';        -- Write data on output
       wait_cycles(1);
       I_selA <= "010";    -- Read R2 -> Write to O_dataA
       I_selB <= "000";
@@ -131,7 +132,7 @@ begin
       I_selA <= "000";    -- Read R0
       I_selB <= "001";    -- Read R1
       I_selD <= "010";    -- Destination: R2
-      I_dataD <= X"3333"; -- Data to write: 0x2222
+      I_dataD <= X"FEED"; -- Data to write: 0xFEED
       I_we <= '0';        -- DO NOT write the data on output
       wait_cycles(1);
       I_selA <= "010";    -- Read R2 -> Write to O_dataA
@@ -164,7 +165,7 @@ begin
       end if;
 
       running <= false;
-      report "Testbench Complete";
+      report "REGISTER: Testbench Complete";
    end process;
 
 end arch_reg_tb;
